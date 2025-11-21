@@ -1,6 +1,6 @@
 # Qt Drawing Application
 
-A desktop painting application built with Qt/C++ as a full-stack development learning project. Inspired by professional drawing tools like Krita, this project aims to create a fully-featured drawing app for digital artists.
+A desktop painting application built with Qt/C++ as a full-stack development learning project. Inspired by professional drawing tools like Krita, this project aims to create a fully-featured drawing app fit for digital artists.
 
 ## About
 
@@ -102,7 +102,7 @@ This project is my introduction to full-stack desktop application development wi
 
 ## Status
 
-**Active Development** - Core canvas and toolbar implemented. Building toward a complete drawing application.
+**Active Development** - Core painting features implemented with brush and eraser tools. Next: shape tools, fill bucket, and canvas navigation.
 
 ---
 
