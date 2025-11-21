@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QImage>
+#include "toolmode.h"
 
 
 // Public: signals, constructors, interface.
@@ -13,19 +14,24 @@
 class CanvasWidget : public QWidget
 {
     Q_OBJECT // Macro in class body for signal / event support
+
 public:
     CanvasWidget(QWidget *parent = nullptr); // Optional parent. Lets parent-child memory management work. Required by most Qt tools and forms.
     int m_brushSize;
     QColor m_brushColor;
+    ToolMode m_currentTool;
 
 public slots:
     void setBrushSize(int size);
     void setBrushColor(const QColor &color);
+    void setToolMode(ToolMode mode);
 
 protected:
     void paintEvent(QPaintEvent *event) override; // QPaintEvent calls Qpainter. The *event is a pointer linked to another thing inherited from qpainter i believe.
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    void setupPainterForCurrentTool(QPainter& painter);
+
 
 private:
     QImage m_image; // Raster buffer holding the canvas pixels

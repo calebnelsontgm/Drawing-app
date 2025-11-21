@@ -5,6 +5,7 @@
 #include "topbar.h"
 
 
+
 // Constructor for MainWindow class. Called when the main window is created.
 // Initializes the base QMainWindow with an optional parent widget.
 // Allocates and initializes the user interface from the .ui XML description.
@@ -43,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     // this is basically taking the slider value in topbar and relaying it to canvaswidget
     connect(topbar, &TopBar::colorChanged, canvas, &CanvasWidget::setBrushColor);
 
+    connect(topbar, &TopBar::toolChanged, canvas, &CanvasWidget::setToolMode);
 
 }
 

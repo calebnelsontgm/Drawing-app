@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QColorDialog>
+#include "toolmode.h"
 
 class TopBar : public QWidget
 {
@@ -16,6 +17,8 @@ public:
     TopBar(QWidget *parent = nullptr);
     QPushButton *myButton;
     QPushButton *colorPreview;
+    QPushButton *eraserButton;
+    QPushButton *brushButton;
     QSlider *mySlider;
     QLabel *myLabel;
     QHBoxLayout *layout;
@@ -25,10 +28,13 @@ public slots:
     // void paintEvent(QPaintEvent *event) override;
     void onSliderValueChanged(int value);
     void onColorButtonClicked(bool checked);
+    void onBrushButtonClicked(bool checked);
+    void onEraserButtonClicked(bool checked);
 
 signals:
     void penWidthChanged(int value);
     void colorChanged(QColor);
+    void toolChanged(ToolMode mode);
 
 };
 
