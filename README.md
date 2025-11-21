@@ -11,6 +11,9 @@ This project started from a passion for digital art and a curiosity about how dr
 - Custom drawing canvas with mouse-based freehand drawing
 - Toolbar interface with adjustable brush controls
 - Real-time brush size slider with visual feedback display
+- Eraser tool that sets pixels to transparent
+- Color picker with live preview button
+- Checkerboard background for transparency indication
 - Event-driven architecture using Qt's signal/slot system
 - Persistent drawing buffer using QImage raster graphics
 
@@ -30,7 +33,8 @@ qt-drawing-app/
 ├── Header Files/
 │ ├── canvaswidget.h # Custom drawing canvas widget
 │ ├── mainwindow.h # Main application window
-│ └── topbar.h # Toolbar with brush controls
+| ├── topbar.h # Toolbar with brush controls
+│ └── toolmode.h # Holds the ToolMode enum for selecting brush, eraser, and other tool states
 ├── Source Files/
 │ ├── canvaswidget.cpp # Canvas drawing logic
 │ ├── mainwindow.cpp # Window setup and layout
@@ -44,10 +48,11 @@ qt-drawing-app/
 
 Core features currently being implemented:
 
-- [ ] Color picker and palette system
+- [x] Color picker and palette system
 - [ ] Shape tools (circle, rectangle, line)
 - [ ] Fill/bucket tool
-- [ ] Eraser functionality
+- [x] Checkerboard transparent background
+- [x] Eraser functionality
 - [ ] Adjustable brush types and styles
 - [ ] Image import/export (PNG, JPG, BMP)
 - [ ] Canvas resize and zoom controls
