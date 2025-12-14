@@ -19,6 +19,7 @@ public:
     QPushButton *colorPreview;
     QPushButton *eraserButton;
     QPushButton *brushButton;
+    QPushButton *shapeButton;
     QSlider *mySlider;
     QLabel *myLabel;
     QHBoxLayout *layout;
@@ -30,11 +31,13 @@ public slots:
     void onColorButtonClicked(bool checked);
     void onBrushButtonClicked(bool checked);
     void onEraserButtonClicked(bool checked);
+    void onShapeButtonClicked(bool checked);
 
 signals:
     void penWidthChanged(int value);
     void colorChanged(QColor);
     void toolChanged(ToolMode mode);
+    void shapeSelected(ShapeType shape);
 
 };
 

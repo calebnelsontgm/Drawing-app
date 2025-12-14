@@ -4,7 +4,14 @@
 enum ToolMode {
     Brush,
     Eraser,
-    Fill
+    Shape
+};
+
+enum ShapeType {
+    Circle,
+    Square,
+    Triangle,
+    Line
 };
 
 #endif // TOOLMODE_H

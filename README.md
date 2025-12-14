@@ -8,14 +8,28 @@ This project started from a passion for digital art and a curiosity about how dr
 
 ## Features
 
-- Custom drawing canvas with mouse-based freehand drawing
-- Toolbar interface with adjustable brush controls
-- Real-time brush size slider with visual feedback display
-- Eraser tool that sets pixels to transparent
-- Color picker with live preview button
-- Checkerboard background for transparency indication
-- Event-driven architecture using Qt's signal/slot system
-- Persistent drawing buffer using QImage raster graphics
+
+
+    Custom drawing canvas with mouse-based freehand drawing
+
+    Toolbar interface with adjustable brush controls
+
+    Real-time brush size slider with visual feedback display
+
+    Eraser tool that sets pixels to transparent
+
+    Color picker with live preview button
+
+    Checkerboard background for transparency indication
+
+    Basic shape tools (circle and square) with shape selector menu
+
+    Event-driven architecture using Qt's signal/slot system
+
+    Persistent drawing buffer using QImage raster graphics
+
+
+
 
 ## Tech Stack
 
@@ -49,7 +63,7 @@ qt-drawing-app/
 Core features currently being implemented:
 
 - [x] Color picker and palette system
-- [ ] Shape tools (circle, rectangle, line)
+- [X] Shape tools (circle, rectangle, line)
 - [ ] Fill/bucket tool
 - [x] Checkerboard transparent background
 - [x] Eraser functionality
@@ -85,7 +99,6 @@ cmake ..
 cmake --build .
 ```
 
-
 ### Running
 Execute the generated binary from the build directory.
 
@@ -102,8 +115,8 @@ This project is my introduction to full-stack desktop application development wi
 
 ## Status
 
-**Active Development** - Core painting features implemented with brush and eraser tools. Next: shape tools, fill bucket, and canvas navigation.
+**Active Development** - Brush, eraser, color picker, checkerboard transparency, and basic shape tools (circle and square) are implemented. Next: line shape, fill bucket, undo/redo, and canvas navigation.
 
 ---
 
-**Last Updated:** November 2025
+**Last Updated:** December 2025

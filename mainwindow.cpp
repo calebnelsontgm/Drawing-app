@@ -46,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(topbar, &TopBar::toolChanged, canvas, &CanvasWidget::setToolMode);
 
+    connect(topbar, &TopBar::shapeSelected, canvas, &CanvasWidget::setShapeType);
+
 }
 
 

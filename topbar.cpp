@@ -1,6 +1,7 @@
 #include "topbar.h"
 #include "toolmode.h"
 #include <QDebug>
+#include <QMenu>
 
 TopBar::TopBar(QWidget *parent) : QWidget(parent)
 {
@@ -12,10 +13,13 @@ TopBar::TopBar(QWidget *parent) : QWidget(parent)
     colorPreview->setFixedSize(30, 30);
     colorPreview->setStyleSheet("background-color: black; border-radius: 15px;");
 
-    eraserButton = new QPushButton("eraser", this);   // eraser
+    eraserButton = new QPushButton("Eraser", this);   // eraser
     eraserButton->setFixedSize(60, 30);
-    brushButton = new QPushButton("brush", this);    // brush
+    brushButton = new QPushButton("Brush", this);    // brush
     brushButton->setFixedSize(60, 30);
+    shapeButton = new QPushButton("Shape", this);    // shape
+    shapeButton->setFixedSize(60, 30);
+
 
     // mySlider setup.
     mySlider = new QSlider(Qt::Horizontal, this);
@@ -28,6 +32,7 @@ TopBar::TopBar(QWidget *parent) : QWidget(parent)
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(mySlider);
     layout->addWidget(myLabel);
+    layout->addWidget(shapeButton);
     layout->addWidget(eraserButton);
     layout->addWidget(brushButton);
     layout->addWidget(colorPreview);
@@ -44,6 +49,8 @@ TopBar::TopBar(QWidget *parent) : QWidget(parent)
     connect(colorPreview, &QPushButton::clicked, this, &TopBar::onColorButtonClicked);
     connect(brushButton, &QPushButton::clicked, this, &TopBar::onBrushButtonClicked);
     connect(eraserButton, &QPushButton::clicked, this, &TopBar::onEraserButtonClicked);
+    connect(shapeButton, &QPushButton::clicked, this, &TopBar::onShapeButtonClicked);
+
 }
 
 
@@ -52,6 +59,31 @@ void TopBar::onSliderValueChanged(int value){
     myLabel->setText(QString::number(value));  // sends value to the slider displayer
     emit penWidthChanged(value);
 }
+
+void TopBar::onShapeButtonClicked(bool checked){ 
+    QMenu* shapeMenu = new QMenu(this);
+    QAction* circleAction = shapeMenu->addAction("Circle");
+    QAction* squareAction = shapeMenu->addAction("Square");
+
+
+    connect(circleAction, &QAction::triggered, this, [this](){
+        emit toolChanged(Shape);
+        emit shapeSelected(Circle);
+        shapeButton->setText("Circle");  // Update button text
+        qDebug() << "circle";
+    });
+
+    connect(squareAction, &QAction::triggered, this, [this]() {
+        emit toolChanged(Shape);
+        emit shapeSelected(Square);
+        shapeButton->setText("Square");
+        qDebug() << "square";
+    });
+
+    shapeButton->setMenu(shapeMenu);
+
+}
+
 
 void TopBar::onColorButtonClicked(bool checked){
     QColor selectedColor = QColorDialog::getColor(Qt::black, this, "Select Brush Color"); // pens the color picker dialog, starting with black as the default color
@@ -75,9 +107,4 @@ void TopBar::onEraserButtonClicked(bool checked){
     emit toolChanged(Eraser);
 }
 
-/* void TopBar::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-    painter.fillRect(rect(), Qt::red);  // Fill entire topbar with red
-}
-*/
+

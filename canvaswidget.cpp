@@ -1,4 +1,5 @@
 #include "canvaswidget.h"
+#include "toolmode.h"
 #include <QMouseEvent>
 #include <cmath>
 
@@ -12,6 +13,10 @@ CanvasWidget:: CanvasWidget(QWidget *parent){
     QPainter p(&m_image);
     p.setCompositionMode(QPainter::CompositionMode_Source);
     p.fillRect(m_image.rect(), Qt::white);
+}
+
+void CanvasWidget::setShapeType(ShapeType shape) {
+    m_currentShape = shape;
 }
 
 void CanvasWidget::paintEvent(QPaintEvent *event){
@@ -37,15 +42,38 @@ void CanvasWidget::paintEvent(QPaintEvent *event){
     }
 
     painter.drawImage(0, 0, m_image); // (x, y, qimage object holding the raster data to render)
+
+
+    if (m_drawingShape) {
+        QPainter previewPainter(this);
+        previewPainter.setPen(QPen(m_brushColor, m_brushSize));
+        previewPainter.setBrush(Qt::NoBrush);
+
+        QRect shapeRect(m_shapeStartPoint, m_lastPoint);
+
+        if (m_currentShape == Circle) {
+            previewPainter.drawEllipse(shapeRect);
+        } else if (m_currentShape == Square) {
+            previewPainter.drawRect(shapeRect);
+        } else if (m_currentShape == Line) {
+            previewPainter.drawLine(m_shapeStartPoint, m_lastPoint);
+        }
+    }
+
 }
 
 void CanvasWidget::mousePressEvent(QMouseEvent *event) {
-
     m_lastPoint = event->pos(); // last point stored when the mouse is clicked.
-    QPainter painter(&m_image); // calling on the raster data in the canvas
-    setupPainterForCurrentTool(painter);
-    painter.drawPoint(m_lastPoint); // basically saying "draw a point here"
-    update();   // Updates the canvas
+
+    if (m_currentTool == Shape) {
+        m_shapeStartPoint = event->pos();
+        m_drawingShape = true;
+    } else {
+        QPainter painter(&m_image); // calling on the raster data in the canvas
+        setupPainterForCurrentTool(painter);
+        painter.drawPoint(m_lastPoint); // basically saying "draw a point here"
+    }
+    update();
 }
 
 void CanvasWidget::setBrushSize(int size) {
@@ -76,6 +104,14 @@ void CanvasWidget::setupPainterForCurrentTool(QPainter& painter) {
 
 
 void CanvasWidget::mouseMoveEvent(QMouseEvent *event) {
+
+    if (m_drawingShape) {
+        // Just update() to show preview - don't draw to image yet
+        m_lastPoint = event->pos();
+        update();
+        return; // exit early before brush logic initiates.
+    }
+
     QPainter painter(&m_image);
     // painter.drawPoint(m_lastPoint); // targets last point
 
@@ -101,4 +137,26 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event) {
     // painter.drawLine(m_lastPoint, event->pos());    // connects last point with new point
     m_lastPoint = event->pos();
     update();
+
+}
+
+void CanvasWidget::mouseReleaseEvent(QMouseEvent *event) {
+    if (m_drawingShape) {
+        // Commiting the shape to the image
+        QPainter painter(&m_image);
+        painter.setPen(QPen(m_brushColor, m_brushSize));
+        painter.setBrush(Qt::NoBrush);  // Or m_brushColor if you want filled shapes
+
+        QRect shapeRect(m_shapeStartPoint, event->pos());
+
+        if (m_currentShape == Circle) {
+            painter.drawEllipse(shapeRect);
+        } else if (m_currentShape == Square) {
+            painter.drawRect(shapeRect);
+        } else if (m_currentShape == Line) {
+            painter.drawLine(m_shapeStartPoint, event->pos());
+        }
+        m_drawingShape = false;
+        update();
+    }
 }
