@@ -22,6 +22,8 @@ set(PROJECT_SOURCES
         topbar.h
         topbar.cpp
         toolmode.h
+        layerspanel.h
+        layerspanel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -31,6 +33,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         canvaswidget.h canvaswidget.cpp
         topbar.h topbar.cpp
         toolmode.h
+        layerspanel.h layerspanel.cpp
+        reordableListWidget.h
 
 
 

@@ -7,7 +7,6 @@ TopBar::TopBar(QWidget *parent) : QWidget(parent)
 {
     setFixedHeight(80); // Height of the Top Bar
 
-
     // Button setup.
     colorPreview = new QPushButton(this);   // color selection
     colorPreview->setFixedSize(30, 30);
@@ -19,7 +18,6 @@ TopBar::TopBar(QWidget *parent) : QWidget(parent)
     brushButton->setFixedSize(60, 30);
     shapeButton = new QPushButton("Shape", this);    // shape
     shapeButton->setFixedSize(60, 30);
-
 
     // mySlider setup.
     mySlider = new QSlider(Qt::Horizontal, this);
@@ -36,7 +34,6 @@ TopBar::TopBar(QWidget *parent) : QWidget(parent)
     layout->addWidget(eraserButton);
     layout->addWidget(brushButton);
     layout->addWidget(colorPreview);
-
 
     // Connections between buttons and their respective functions.
     connect(mySlider, &QSlider::valueChanged, this, &TopBar::onSliderValueChanged);
